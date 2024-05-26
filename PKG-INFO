@@ -1,0 +1,77 @@
+Metadata-Version: 2.1
+Name: LexBuilder
+Version: 1.0.2
+Summary: Library for automatic construction of lexers
+Author: Alexander554
+Author-email: gaa.28112008@gmail.com
+Keywords: python lexer
+Classifier: Programming Language :: Python :: 3.11
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# About LexBuilder:
+LexBuilder is a library for automatically building a lexer in Python. In the future, the library will be able to build lexers in major programming languages such as C++, Golang, Java/Kotlin, etc.
+
+## About Syntax:
+In order for the library to generate the Lexer.py file, you need to pass a list of tokens to the PyBuilder class.
+To declare a token, you need to import the Token() class from the PyLexer() class. You need to pass the token name and its value to the Token() class. Afterwards, add all the tokens we created to a list and pass it as an argument to the PyBuilder() class. By default, the lexer contains the tokens:
+
+```python
+INT_NUMBER = "INT_NUMBER"
+FLOAT_NUMBER = "FLOAT_NUMBER"
+STRING = "STRING"
+PLUS = "PLUS"
+MINUS = "MINUS"
+VAR = "VAR"
+EOF = "EOF"
+```
+### Example of creating a list of tokens:
+```python
+from LexBuilder.PyLexer import Token
+
+DIVIDE = Token("DIVIDE", "/")
+PRINT = Token("PRINT", "print")
+INPUT = Token("INPUT", "input")
+
+tokens = [DIVIDE, PRINT, INPUT]
+```
+## Example:
+### Generate Lexer:
+```python
+from LexBuilder.PyLexer import PyBuilder, Token
+
+
+DIVIDE = Token("DIVIDE", "/")
+PRINT = Token("PRINT", "print")
+INPUT = Token("INPUT", "input")
+
+tokens = [DIVIDE, PRINT, INPUT]
+
+lexer = PyBuilder(tokens)
+lexer.build_lexer()
+```
+
+### Use Lexer:
+```python
+from Lexer import *
+
+
+code = 'print "Hello, world!"'
+lexer = Lexer(code)
+
+token = lexer.get_next_token()
+print(token)
+
+while token.type != EOF:
+    token = lexer.get_next_token()
+    print(token)
+```
+
+```python
+Token(PRINT, "print")
+Token(STRING, "Hello, world!")
+Token(EOF, None)
+```
